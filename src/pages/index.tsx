@@ -10,7 +10,7 @@ export default function Home() {
 	const wsRef = useRef<WebSocket | null>(null);
 
 	useEffect(() => {
-		wsRef.current = new WebSocket('ws://wsgo-production.up.railway.app/ws');
+		wsRef.current = new WebSocket('wss://wsgo-production.up.railway.app/ws');
 		// wsRef.current = new WebSocket('ws://localhost:8080/ws');
 
 		wsRef.current.onmessage = (event) => {

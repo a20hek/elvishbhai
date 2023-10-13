@@ -128,6 +128,10 @@ export default function Home() {
 			Mixpanel.trackVote(vote);
 			Mixpanel.trackMessageSent();
 
+			const incrementResponse = await axios.post('/api/increment', {
+				id: content,
+			});
+
 			const composedMessage = `@${name}: ${content}`;
 			wsRef.current.send(
 				JSON.stringify({
@@ -214,7 +218,7 @@ export default function Home() {
 							<div className='flex items-center my-4 mt-10 lg:my-10 lg:mb-12'>
 								<div className='h-3 w-3 bg-green-500 rounded-full animate-pulse mr-2'></div>
 								<p className='text-gray-400 text-lg lg:text-xl'>
-									<span className='text-black font-semibold'>{onlineUsers}</span> People Online
+									<span className='text-black font-semibold'>{10 + onlineUsers}</span> People Online
 								</p>
 							</div>
 							<div>

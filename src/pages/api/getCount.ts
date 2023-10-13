@@ -1,36 +1,38 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '@/lib/supabase';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	if (req.method !== 'GET') {
-		return res.status(405).end();
-	}
-
+const getCountById = async (id: 'Elvish bhaaai' | 'Yes'): Promise<number> => {
 	try {
-		const { data, error } = await supabase.from('message').select('content');
+		const { data, error } = await supabase.from('count').select('count').eq('id', id).single();
 
 		if (error) {
 			throw error;
 		}
 
-		if (!data) {
-			return res.status(500).json({ error: 'Data is null' });
+		if (!data || typeof data.count !== 'number') {
+			throw new Error('Count not found');
 		}
 
-		let elvishCount = 12000;
-		let yesCount = 2000;
-		data.forEach((row) => {
-			if (row.content === 'Elvish bhaaai') {
-				elvishCount++;
-			}
-			if (row.content === 'Yes') {
-				yesCount++;
-			}
-		});
-
-		return res.status(200).json({ elvishCount, yesCount });
+		return data.count;
 	} catch (error) {
-		console.error(error);
-		return res.status(500).json({ error: 'An error occurred while fetching the data.' });
+		throw error;
+	}
+};
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+	if (req.method === 'GET') {
+		try {
+			const elvishCount = await getCountById('Elvish bhaaai');
+			const yesCount = await getCountById('Yes');
+
+			const realElvishCount = elvishCount + 12000;
+			const realYesCount = yesCount + 2000;
+
+			res.status(200).json({ elvishCount: realElvishCount, yesCount: realYesCount });
+		} catch (error: any) {
+			res.status(500).json({ error: error.message || error });
+		}
+	} else {
+		res.status(405).end();
 	}
 }

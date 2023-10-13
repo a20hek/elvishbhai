@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Inter } from 'next/font/google';
 import { useEffect, useRef, useState } from 'react';
 
@@ -10,6 +11,20 @@ export default function Home() {
 	const wsRef = useRef<WebSocket | null>(null);
 
 	useEffect(() => {
+		const populateMessages = async () => {
+			try {
+				const response = await axios.get('/api/getMessages');
+				const fetchedMessages = response.data.map(
+					(message: any) => `@${message.name}: ${message.content}`
+				);
+				setMessages(fetchedMessages);
+			} catch (error) {
+				console.error('An error occurred while fetching messages:', error);
+			}
+		};
+
+		populateMessages();
+
 		wsRef.current = new WebSocket('wss://wsgo-production.up.railway.app/ws');
 		// wsRef.current = new WebSocket('ws://localhost:8080/ws');
 
@@ -35,7 +50,7 @@ export default function Home() {
 		};
 	}, []);
 
-	const sendMessage = (content: 'Elvish bhaaai' | 'Yes') => {
+	const sendMessage = async (content: 'Elvish bhaaai' | 'Yes') => {
 		if (name && content && wsRef.current) {
 			const composedMessage = `@${name}: ${content}`;
 			wsRef.current.send(
@@ -44,6 +59,15 @@ export default function Home() {
 					data: composedMessage,
 				})
 			);
+			try {
+				const response = await axios.post('/api/postMessage', {
+					name,
+					content,
+				});
+				console.log('Message posted successfully:', response.data);
+			} catch (error) {
+				console.error('An error occurred while posting the message:', error);
+			}
 		}
 	};
 

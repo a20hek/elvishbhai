@@ -145,7 +145,7 @@ export default function Home() {
 				<meta property='og:description' content='Elvish Bhai ke aage koi kuch bol sakta hai kya?' />
 				<meta property='og:type' content='website' />
 				<meta property='og:url' content='https://elvishbhai.com' />
-				<meta property='og:image' content='https://elvishbhai/og.png' />
+				<meta property='og:image' content='https://elvishbhai.com/og.png' />
 
 				<meta name='twitter:card' content='summary_large_image' />
 				<meta name='twitter:title' content='Elvish Bhaaaaii' />

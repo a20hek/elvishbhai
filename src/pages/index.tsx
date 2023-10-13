@@ -136,7 +136,26 @@ export default function Home() {
 	return (
 		<>
 			<Head>
-				<title>Elvish Bhai ke aage koi kuch bol sakta hai kya?</title>
+				<title>Elvish Bhaaaaii</title>
+				<meta name='description' content='Elvish Bhai ke aage koi kuch bol sakta hai kya?' />
+				<meta name='keywords' content='elvish, elvish bhai, elvish yadav' />
+				<link rel='canonical' href='https://elvishbhai.com' />
+
+				<meta property='og:title' content='Elvish Bhaaaaii' />
+				<meta property='og:description' content='Elvish Bhai ke aage koi kuch bol sakta hai kya?' />
+				<meta property='og:type' content='website' />
+				<meta property='og:url' content='https://elvishbhai.com' />
+				<meta property='og:image' content='https://elvishbhai/og.png' />
+
+				<meta name='twitter:card' content='summary_large_image' />
+				<meta name='twitter:title' content='Elvish Bhaaaaii' />
+				<meta
+					name='twitter:description'
+					content='Elvish Bhai ke aage koi kuch bol sakta hai kya?'
+				/>
+				<meta name='twitter:image' content='https://elvishbhai.com/og.png' />
+
+				<link rel='icon' type='image/png' href='/favicon.ico' />
 			</Head>
 			<main className={`${inter.className} mx-6 mt-4 lg:mt-12`}>
 				<div className='flex flex-col lg:flex-row lg:max-w-[1200px] mx-auto'>

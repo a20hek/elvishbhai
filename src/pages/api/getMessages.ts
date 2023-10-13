@@ -7,13 +7,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	}
 
 	try {
-		const { data, error } = await supabase.from('message').select('*');
+		const { data } = await supabase
+			.from('message')
+			.select('*')
+			.order('id', { ascending: false })
+			.limit(1000);
 
-		if (error) {
-			throw error;
-		}
+		const reversedData = data ? data.reverse() : [];
 
-		return res.status(200).json(data);
+		return res.status(200).json(reversedData);
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({ error: 'An error occurred while fetching the data.' });

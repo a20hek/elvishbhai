@@ -9,17 +9,19 @@ const inter = Inter({ subsets: ['latin'] });
 
 const MessagesComponent = ({ messages }: { messages: string[] }) => {
 	return (
-		<ul>
-			{[...messages].reverse().map((msg, idx) => {
-				const [_, name, content] = msg.match(/@([\w\d\s]+): (.+)/) || [];
-				return (
-					<li key={idx} className='mb-2'>
-						<span className='font-semibold text-lg lg:text-xl text-slate-500'>{`@${name}:`}</span>
-						<span className='ml-2 text-lg lg:text-xl text-slate-500'>{content}</span>
-					</li>
-				);
-			})}
-		</ul>
+		<div className='max-h-[400px] lg:max-h-[700px] overflow-y-auto'>
+			<ul>
+				{[...messages].reverse().map((msg, idx) => {
+					const [_, name, content] = msg.match(/@([\w\d\s]+): (.+)/) || [];
+					return (
+						<li key={idx} className='mb-2'>
+							<span className='font-semibold text-lg lg:text-xl text-slate-500'>{`@${name}:`}</span>
+							<span className='ml-2 text-lg lg:text-xl text-slate-500'>{content}</span>
+						</li>
+					);
+				})}
+			</ul>
+		</div>
 	);
 };
 

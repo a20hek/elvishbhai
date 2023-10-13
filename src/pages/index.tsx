@@ -11,7 +11,7 @@ const MessagesComponent = ({ messages }: { messages: string[] }) => {
 	return (
 		<ul>
 			{[...messages].reverse().map((msg, idx) => {
-				const [_, name, content] = msg.match(/@([\w\d]+): (.+)/) || [];
+				const [_, name, content] = msg.match(/@([\w\d\s]+): (.+)/) || [];
 				return (
 					<li key={idx} className='mb-2'>
 						<span className='font-semibold text-lg lg:text-xl text-slate-500'>{`@${name}:`}</span>

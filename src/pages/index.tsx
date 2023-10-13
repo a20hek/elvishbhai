@@ -2,6 +2,7 @@
 import { ProgressBar } from '@/components/progress-bar';
 import axios from 'axios';
 import { Inter } from 'next/font/google';
+import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -124,54 +125,63 @@ export default function Home() {
 	};
 
 	return (
-		<main className={`${inter.className} mx-6 mt-4 lg:mt-12`}>
-			<div className='flex flex-col lg:flex-row lg:max-w-[1200px] mx-auto'>
-				<div className='mx-auto max-w-[600px]'>
-					<h1 className='text-5xl lg:text-7xl font-bold mb-4 mt-8'>
-						Elvish Bhai ke aage koi kuch bol sakta hai kya?
-					</h1>
-					<ProgressBar elvishCount={elvishCount} yesCount={yesCount} rotateElvish={rotateElvish} />
-					<div className='space-y-4'>
-						<div className='relative'>
-							<input
-								value={name}
-								onChange={(e) => setName(e.target.value)}
-								placeholder='enter your name'
-								className='pl-10 p-2 border rounded w-full text-gray-600 text-xl h-12'
-							/>
-							<span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-[#CBD5E1] text-xl'>
-								@
-							</span>
-						</div>
-						<div className='flex justify-between gap-4'>
-							<button
-								onClick={() => sendMessage('Elvish bhaaai')}
-								className='w-3/5 px-4 py-2 bg-[#C2CAC526] text-black rounded font-bold text-2xl border border-black transition-transform transform active:scale-95 hover:bg-[#C2CAC540] text-center'>
-								Elvish bhaaai
-							</button>
+		<>
+			<Head>
+				<title>Elvish Bhai ke aage koi kuch bol sakta hai kya?</title>
+			</Head>
+			<main className={`${inter.className} mx-6 mt-4 lg:mt-12`}>
+				<div className='flex flex-col lg:flex-row lg:max-w-[1200px] mx-auto'>
+					<div className='mx-auto max-w-[600px]'>
+						<h1 className='text-5xl lg:text-7xl font-bold mb-4 mt-8'>
+							Elvish Bhai ke aage koi kuch bol sakta hai kya?
+						</h1>
+						<ProgressBar
+							elvishCount={elvishCount}
+							yesCount={yesCount}
+							rotateElvish={rotateElvish}
+						/>
+						<div className='space-y-4'>
+							<div className='relative'>
+								<input
+									value={name}
+									onChange={(e) => setName(e.target.value)}
+									placeholder='enter your name'
+									className='pl-10 p-2 border rounded w-full text-gray-600 text-xl h-12'
+								/>
+								<span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-[#CBD5E1] text-xl'>
+									@
+								</span>
+							</div>
+							<div className='flex justify-between gap-4'>
+								<button
+									onClick={() => sendMessage('Elvish bhaaai')}
+									className='w-3/5 px-4 py-2 bg-[#C2CAC526] text-black rounded font-bold text-2xl border border-black transition-transform transform active:scale-95 hover:bg-[#C2CAC540] text-center'>
+									Elvish bhaaai
+								</button>
 
-							<button
-								onClick={() => sendMessage('Yes')}
-								className='flex-1 px-4 py-2 bg-[#C2CAC526] text-black rounded font-bold text-2xl border border-black transition-transform transform active:scale-95 hover:bg-[#C2CAC540] text-center'>
-								Yes
-							</button>
+								<button
+									onClick={() => sendMessage('Yes')}
+									className='flex-1 px-4 py-2 bg-[#C2CAC526] text-black rounded font-bold text-2xl border border-black transition-transform transform active:scale-95 hover:bg-[#C2CAC540] text-center'>
+									Yes
+								</button>
+							</div>
+						</div>
+					</div>
+					<div className='max-w-[600px] sm:mx-auto'>
+						<div className='lg:w-auto sm:w-[600px] '>
+							<div className='flex items-center my-4 mt-10 lg:my-10 lg:mb-12'>
+								<div className='h-3 w-3 bg-green-500 rounded-full animate-pulse mr-2'></div>
+								<p className='text-gray-400 text-lg lg:text-xl'>
+									<span className='text-black font-semibold'>{onlineUsers}</span> People Online
+								</p>
+							</div>
+							<div>
+								<MessagesComponent messages={messages} />
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className='max-w-[600px] sm:mx-auto'>
-					<div className='lg:w-auto sm:w-[600px] '>
-						<div className='flex items-center my-4 mt-10 lg:my-10 lg:mb-12'>
-							<div className='h-3 w-3 bg-green-500 rounded-full animate-pulse mr-2'></div>
-							<p className='text-gray-400 text-lg lg:text-xl'>
-								<span className='text-black font-semibold'>{onlineUsers}</span> People Online
-							</p>
-						</div>
-						<div>
-							<MessagesComponent messages={messages} />
-						</div>
-					</div>
-				</div>
-			</div>
-		</main>
+			</main>
+		</>
 	);
 }

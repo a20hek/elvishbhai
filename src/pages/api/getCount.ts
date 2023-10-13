@@ -1,4 +1,3 @@
-// /api/countMessages.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import { supabase } from '../../lib/supabase';
 
@@ -18,8 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 			return res.status(500).json({ error: 'Data is null' });
 		}
 
-		let elvishCount = 0;
-		let yesCount = 0;
+		let elvishCount = 12000;
+		let yesCount = 2000;
 		data.forEach((row) => {
 			if (row.content === 'Elvish bhaaai') {
 				elvishCount++;

@@ -40,7 +40,7 @@ export const ProgressBar = ({
 			<img
 				src='/yes.png'
 				alt='Yes'
-				className='absolute top-0 right-[-12px] h-16 object-cover z-10'
+				className='absolute top-0 right-[-16px] h-16 object-cover z-10'
 			/>
 
 			<div className='flex justify-between mt-4'>

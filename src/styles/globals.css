@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes fast-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(1440deg);
+	}
+}
+
+.fast-spin {
+	animation: fast-spin 2s linear;
+}

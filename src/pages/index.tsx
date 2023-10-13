@@ -72,6 +72,15 @@ export default function Home() {
 					break;
 				case 'chat':
 					setMessages((prevMessages) => [...prevMessages, data.data]);
+					const match = data.data.match(/@.*?:\s(.*)/);
+					if (match && match[1]) {
+						const content = match[1];
+						if (content === 'Elvish bhaaai') {
+							setElvishCount((prevCount) => prevCount + 1);
+						} else if (content === 'Yes') {
+							setYesCount((prevCount) => prevCount + 1);
+						}
+					}
 					break;
 				default:
 					break;

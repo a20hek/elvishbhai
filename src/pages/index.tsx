@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-img-element */
 import { ProgressBar } from '@/components/progress-bar';
+import { Mixpanel } from '@/lib/mixpanel';
 import axios from 'axios';
 import { Inter } from 'next/font/google';
 import Head from 'next/head';
@@ -33,6 +33,14 @@ export default function Home() {
 	const [yesCount, setYesCount] = useState<number>(0);
 
 	const [rotateElvish, setRotateElvish] = useState(false);
+
+	useEffect(() => {
+		const hasSession = sessionStorage.getItem('hasSession');
+		if (!hasSession) {
+			Mixpanel.trackVisitor();
+			sessionStorage.setItem('hasSession', 'true');
+		}
+	}, []);
 
 	useEffect(() => {
 		const populateMessages = async () => {
@@ -113,6 +121,10 @@ export default function Home() {
 				setRotateElvish(true);
 				audio.play().catch((error) => console.error('Audio play failed:', error));
 			}
+
+			const vote = content === 'Elvish bhaaai' ? 'Y' : 'N';
+			Mixpanel.trackVote(vote);
+			Mixpanel.trackMessageSent();
 
 			const composedMessage = `@${name}: ${content}`;
 			wsRef.current.send(

@@ -1,7 +1,8 @@
 import { ProgressBar } from '@/components/progress-bar';
+import { ShareButton } from '@/components/share-button';
 import { Mixpanel } from '@/lib/mixpanel';
 import axios from 'axios';
-import { Inter } from 'next/font/google';
+import { Inter, Share } from 'next/font/google';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 
@@ -185,6 +186,11 @@ export default function Home() {
 							elvishCount={elvishCount}
 							yesCount={yesCount}
 							rotateElvish={rotateElvish}
+						/>
+						<ShareButton
+							title='Check this out!'
+							text='Sharing from my awesome app'
+							url='https://elvishbhai.com'
 						/>
 						<div className='space-y-4'>
 							<div className='relative'>

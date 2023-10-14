@@ -9,14 +9,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@radix-ui/react-toast": "^1.1.5",
     "@supabase/supabase-js": "^2.38.1",
     "@types/mixpanel-browser": "^2.47.3",
     "axios": "^1.5.1",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.287.0",
     "mixpanel-browser": "^2.47.0",
     "next": "13.5.4",
     "react": "^18.2.0",
     "react-countup": "^6.4.2",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "tailwind-merge": "^1.14.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.8.4",

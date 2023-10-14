@@ -1,4 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
+
+import { useEffect, useRef } from 'react';
+import CountUp from 'react-countup';
 interface ProgressBarProps {
 	elvishCount: number;
 	yesCount: number;
@@ -14,6 +17,17 @@ export const ProgressBar = ({
 }: ProgressBarProps) => {
 	const elvishPercentage = (elvishCount / maxCount) * 100;
 	const yesPercentage = (yesCount / maxCount) * 100;
+
+	const prevElvishCountRef = useRef<number>(elvishCount);
+	const prevYesCountRef = useRef<number>(yesCount);
+
+	useEffect(() => {
+		prevElvishCountRef.current = elvishCount;
+	}, [elvishCount]);
+
+	useEffect(() => {
+		prevYesCountRef.current = yesCount;
+	}, [yesCount]);
 
 	return (
 		<div className='my-12 lg:my-20 relative'>
@@ -46,11 +60,15 @@ export const ProgressBar = ({
 			<div className='flex justify-between mt-4'>
 				<div>
 					<p className='font-bold text-2xl'>Elvish Bhaaai</p>
-					<p className='font-semibold text-2xl text-gray-500'>{elvishCount}</p>
+					<p className='font-semibold text-2xl text-gray-500'>
+						<CountUp start={prevElvishCountRef.current} end={elvishCount} duration={2} />
+					</p>
 				</div>
 				<div>
 					<p className='font-bold text-2xl'>Yes</p>
-					<p className='font-semibold text-2xl text-gray-500'>{yesCount}</p>
+					<p className='font-semibold text-2xl text-gray-500'>
+						<CountUp start={prevYesCountRef.current} end={yesCount} duration={2} />
+					</p>
 				</div>
 			</div>
 		</div>

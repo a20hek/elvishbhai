@@ -216,7 +216,9 @@ export default function Home() {
 					<div className='max-w-[600px] sm:mx-auto'>
 						<div className='lg:w-auto sm:w-[600px] '>
 							<div className='flex items-center my-4 mt-10 lg:my-10 lg:mb-12'>
-								<div className='h-3 w-3 bg-green-500 rounded-full animate-pulse mr-2'></div>
+								<div
+									className='h-3 w-3 bg-green-500 rounded-full mr-2'
+									style={{ animation: 'custom-pulse 1.2s infinite' }}></div>
 								<p className='text-gray-400 text-lg lg:text-xl'>
 									<span className='text-black font-semibold'>{10 + onlineUsers}</span> People Online
 								</p>

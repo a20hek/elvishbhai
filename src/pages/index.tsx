@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Inter, Share } from 'next/font/google';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
+import CountUp from 'react-countup';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +30,8 @@ const MessagesComponent = ({ messages }: { messages: string[] }) => {
 export default function Home() {
 	const [name, setName] = useState<string>('');
 	const [onlineUsers, setOnlineUsers] = useState<number>(0);
+	const prevOnlineUsersRef = useRef<number>(onlineUsers);
+
 	const [messages, setMessages] = useState<string[]>([]);
 	const wsRef = useRef<WebSocket | null>(null);
 
@@ -116,6 +119,10 @@ export default function Home() {
 			clearTimeout(timer);
 		};
 	}, [rotateElvish]);
+
+	useEffect(() => {
+		prevOnlineUsersRef.current = onlineUsers;
+	}, [onlineUsers]);
 
 	const sendMessage = async (content: 'Elvish bhaaai' | 'Yes') => {
 		if (name && content && wsRef.current) {
@@ -226,7 +233,10 @@ export default function Home() {
 									className='h-3 w-3 bg-green-500 rounded-full mr-2'
 									style={{ animation: 'custom-pulse 1.2s infinite' }}></div>
 								<p className='text-gray-400 text-lg lg:text-xl'>
-									<span className='text-black font-semibold'>{10 + onlineUsers}</span> People Online
+									<span className='text-black font-semibold'>
+										<CountUp start={prevOnlineUsersRef.current} end={onlineUsers} />
+									</span>{' '}
+									People Online
 								</p>
 							</div>
 							<div>

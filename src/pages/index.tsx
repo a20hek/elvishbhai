@@ -1,7 +1,7 @@
 import { ProgressBar } from '@/components/progress-bar';
 import { Mixpanel } from '@/lib/mixpanel';
 import axios from 'axios';
-import { Inter } from 'next/font/google';
+import { Inter, Share } from 'next/font/google';
 import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 
@@ -151,6 +151,38 @@ export default function Home() {
 		}
 	};
 
+	const ShareButton = ({ title, text, url }: any) => {
+		const [isShareSupported, setIsShareSupported] = useState(false);
+
+		useEffect(() => {
+			if (typeof window !== 'undefined' && 'navigator' in window) {
+				setIsShareSupported('share' in navigator);
+			}
+		}, []);
+
+		const handleShareClick = async () => {
+			if (isShareSupported && navigator.share) {
+				try {
+					await navigator.share({
+						title,
+						text,
+						url,
+					});
+				} catch (error) {
+					console.error('Something went wrong with sharing', error);
+				}
+			} else {
+				alert('Web Share is not supported on your device.');
+			}
+		};
+
+		return (
+			<button disabled={!isShareSupported} onClick={handleShareClick}>
+				Share
+			</button>
+		);
+	};
+
 	return (
 		<>
 			<Head>
@@ -185,6 +217,11 @@ export default function Home() {
 							elvishCount={elvishCount}
 							yesCount={yesCount}
 							rotateElvish={rotateElvish}
+						/>
+						<ShareButton
+							title='Check this out!'
+							text='Sharing from my awesome app'
+							url='https://elvishbhai.com'
 						/>
 						<div className='space-y-4'>
 							<div className='relative'>

@@ -30,7 +30,7 @@ export const ProgressBar = ({
 	}, [yesCount]);
 
 	return (
-		<div className='my-12 lg:my-20 relative'>
+		<div className='mt-12 mb-6 lg:mt-20 lg:mb-8 relative'>
 			<div className='flex w-full z-0'>
 				<div
 					className='bg-[#22C55E] h-12 mt-2'

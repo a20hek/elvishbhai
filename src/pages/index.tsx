@@ -1,4 +1,5 @@
 import { ProgressBar } from '@/components/progress-bar';
+import { ShareButton } from '@/components/share-button';
 import { Mixpanel } from '@/lib/mixpanel';
 import axios from 'axios';
 import { Inter, Share } from 'next/font/google';
@@ -149,38 +150,6 @@ export default function Home() {
 				console.error('An error occurred while posting the message:', error);
 			}
 		}
-	};
-
-	const ShareButton = ({ title, text, url }: any) => {
-		const [isShareSupported, setIsShareSupported] = useState(false);
-
-		useEffect(() => {
-			if (typeof window !== 'undefined' && 'navigator' in window) {
-				setIsShareSupported('share' in navigator);
-			}
-		}, []);
-
-		const handleShareClick = async () => {
-			if (isShareSupported && navigator.share) {
-				try {
-					await navigator.share({
-						title,
-						text,
-						url,
-					});
-				} catch (error) {
-					console.error('Something went wrong with sharing', error);
-				}
-			} else {
-				alert('Web Share is not supported on your device.');
-			}
-		};
-
-		return (
-			<button disabled={!isShareSupported} onClick={handleShareClick}>
-				Share
-			</button>
-		);
 	};
 
 	return (

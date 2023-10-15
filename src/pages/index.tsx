@@ -1,5 +1,7 @@
 import { ProgressBar } from '@/components/progress-bar';
 import { ShareButton } from '@/components/share-button';
+import { Toaster } from '@/components/ui/toaster';
+import { toast } from '@/components/ui/use-toast';
 import { Mixpanel } from '@/lib/mixpanel';
 import axios from 'axios';
 import { Inter, Share } from 'next/font/google';
@@ -16,7 +18,7 @@ const MessagesComponent = ({ messages }: { messages: string[] }) => {
 				{[...messages].reverse().map((msg, idx) => {
 					const [_, name, content] = msg.match(/@([\w\d\s]+): (.+)/) || [];
 					return (
-						<li key={idx} className='mb-2'>
+						<li key={idx} className='mb-2 animate fade-in-5 duration-300 transition-all'>
 							<span className='font-semibold text-lg lg:text-xl text-slate-500'>{`@${name}:`}</span>
 							<span className='ml-2 text-lg lg:text-xl text-slate-500'>{content}</span>
 						</li>
@@ -75,7 +77,6 @@ export default function Home() {
 		fetchCounts();
 
 		wsRef.current = new WebSocket('wss://wsgo-production.up.railway.app/ws');
-		// wsRef.current = new WebSocket('ws://localhost:8080/ws');
 
 		wsRef.current.onmessage = (event) => {
 			const data = JSON.parse(event.data);
@@ -125,6 +126,13 @@ export default function Home() {
 	}, [onlineUsers]);
 
 	const sendMessage = async (content: 'Elvish bhaaai' | 'Yes') => {
+		{
+			if (!name) {
+				toast({
+					title: 'please enter your name',
+				});
+			}
+		}
 		if (name && content && wsRef.current) {
 			if (content === 'Elvish bhaaai') {
 				const audio = new Audio('/elv.mp3');
@@ -184,6 +192,7 @@ export default function Home() {
 				<link rel='icon' type='image/png' href='/favicon.ico' />
 			</Head>
 			<main className={`${inter.className} mx-6 mt-4 lg:mt-12`}>
+				<Toaster />
 				<div className='flex flex-col lg:flex-row lg:max-w-[1200px] mx-auto'>
 					<div className='mx-auto max-w-[600px]'>
 						<h1 className='text-5xl lg:text-7xl font-bold mb-4 mt-8'>

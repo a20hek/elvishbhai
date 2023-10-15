@@ -17,7 +17,7 @@ export const ShareButton = ({ title, text, url }: any) => {
 		try {
 			await navigator.clipboard.writeText(textToCopy);
 			toast({
-				description: 'Copied to clipboard',
+				description: 'copied to clipboard',
 			});
 		} catch (error) {
 			console.error('Failed to copy text: ', error);

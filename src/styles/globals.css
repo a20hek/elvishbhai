@@ -14,15 +14,3 @@
 .fast-spin {
 	animation: fast-spin 2s linear;
 }
-
-@keyframes throbbing {
-	0% {
-		opacity: 0.8;
-	}
-	50% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0.8;
-	}
-}

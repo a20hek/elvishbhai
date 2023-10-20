@@ -61,13 +61,13 @@ export const ProgressBar = ({
 				<div>
 					<p className='font-bold text-2xl'>Elvish Bhaaai</p>
 					<p className='font-semibold text-2xl text-gray-500'>
-						<CountUp start={prevElvishCountRef.current} end={elvishCount} duration={2} />
+						<CountUp start={prevElvishCountRef.current} end={elvishCount} />
 					</p>
 				</div>
 				<div>
 					<p className='font-bold text-2xl'>Yes</p>
 					<p className='font-semibold text-2xl text-gray-500'>
-						<CountUp start={prevYesCountRef.current} end={yesCount} duration={2} />
+						<CountUp start={prevYesCountRef.current} end={yesCount} />
 					</p>
 				</div>
 			</div>

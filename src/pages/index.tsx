@@ -76,7 +76,8 @@ export default function Home() {
 		populateMessages();
 		fetchCounts();
 
-		wsRef.current = new WebSocket('wss://wsgo-production.up.railway.app/ws');
+		// wsRef.current = new WebSocket('wss://wsgo-production.up.railway.app/ws');
+		wsRef.current = new WebSocket('ws://localhost:8080/ws');
 
 		wsRef.current.onmessage = (event) => {
 			const data = JSON.parse(event.data);

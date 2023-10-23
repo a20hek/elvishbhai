@@ -9,14 +9,9 @@ interface ProgressBarProps {
 	rotateElvish: boolean;
 }
 
-export const ProgressBar = ({
-	elvishCount,
-	yesCount,
-	rotateElvish,
-	maxCount = 100,
-}: ProgressBarProps) => {
-	const elvishPercentage = (elvishCount / maxCount) * 100;
-	const yesPercentage = (yesCount / maxCount) * 100;
+export const ProgressBar = ({ elvishCount, yesCount, rotateElvish }: ProgressBarProps) => {
+	const elvishPercentage = (elvishCount / (elvishCount + yesCount)) * 100;
+	const yesPercentage = (yesCount / (elvishCount + yesCount)) * 100;
 
 	const prevElvishCountRef = useRef<number>(elvishCount);
 	const prevYesCountRef = useRef<number>(yesCount);

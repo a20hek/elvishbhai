@@ -4,22 +4,24 @@ import { Toaster } from '@/components/ui/toaster';
 import { toast } from '@/components/ui/use-toast';
 import { Mixpanel } from '@/lib/mixpanel';
 import axios from 'axios';
-import { Inter, Share } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import Head from 'next/head';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import CountUp from 'react-countup';
 
 const inter = Inter({ subsets: ['latin'] });
 
 const MessagesComponent = ({ messages }: { messages: string[] }) => {
+	const reversedMessages = useMemo(() => [...messages].reverse(), [messages]);
 	return (
 		<div className='max-h-[400px] lg:max-h-[700px] overflow-y-auto'>
 			<ul>
-				{[...messages].reverse().map((msg, idx) => {
+				{reversedMessages.map((msg, idx) => {
 					const [_, name, content] = msg.match(/@([\w\d\s]+): (.+)/) || [];
+					const truncatedName = name?.length > 15 ? `${name.slice(0, 15)}...` : name || '';
 					return (
 						<li key={idx} className='mb-2 animate fade-in-5 duration-300 transition-all'>
-							<span className='font-semibold text-lg lg:text-xl text-slate-500'>{`@${name}:`}</span>
+							<span className='font-semibold text-lg lg:text-xl text-slate-500'>{`@${truncatedName}:`}</span>
 							<span className='ml-2 text-lg lg:text-xl text-slate-500'>{content}</span>
 						</li>
 					);
@@ -216,6 +218,7 @@ export default function Home() {
 									onChange={(e) => setName(e.target.value)}
 									placeholder='enter your name'
 									className='pl-10 p-2 border rounded w-full text-gray-600 text-xl h-12'
+									maxLength={15}
 								/>
 								<span className='absolute left-3 top-1/2 transform -translate-y-1/2 text-[#CBD5E1] text-xl'>
 									@

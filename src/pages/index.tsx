@@ -44,6 +44,9 @@ export default function Home() {
 
 	const [rotateElvish, setRotateElvish] = useState(false);
 
+	const [lastClickTime, setLastClickTime] = useState<number>(0);
+	const [clickCounter, setClickCounter] = useState<number>(0);
+
 	useEffect(() => {
 		const hasSession = sessionStorage.getItem('hasSession');
 		if (!hasSession) {
@@ -129,6 +132,20 @@ export default function Home() {
 	}, [onlineUsers]);
 
 	const sendMessage = async (content: 'Elvish bhaaai' | 'Yes') => {
+		const currentTime = Date.now();
+		if (lastClickTime === null || currentTime - lastClickTime >= 60 * 1000) {
+			setLastClickTime(currentTime);
+			setClickCounter(1);
+		} else {
+			if (clickCounter >= 30) {
+				toast({
+					title: 'oops',
+					description: 'you can only click 30 times per minute',
+				});
+				return;
+			}
+			setClickCounter((prevCounter) => prevCounter + 1);
+		}
 		{
 			if (!name) {
 				toast({
@@ -147,10 +164,6 @@ export default function Home() {
 			Mixpanel.trackVote(vote);
 			Mixpanel.trackMessageSent();
 
-			const incrementResponse = await axios.post('/api/increment', {
-				id: content,
-			});
-
 			const composedMessage = `@${name}: ${content}`;
 			wsRef.current.send(
 				JSON.stringify({
@@ -158,15 +171,6 @@ export default function Home() {
 					data: composedMessage,
 				})
 			);
-			try {
-				const response = await axios.post('/api/postMessage', {
-					name,
-					content,
-				});
-				console.log('Message posted successfully:', response.data);
-			} catch (error) {
-				console.error('An error occurred while posting the message:', error);
-			}
 		}
 	};
 
@@ -195,8 +199,7 @@ export default function Home() {
 				<link rel='icon' type='image/png' href='/favicon.ico' />
 			</Head>
 			<main className={`${inter.className} mx-6 mt-4 lg:mt-12`}>
-				<p>we&apos;ll be right back</p>
-				{/* <Toaster />
+				<Toaster />
 				<div className='flex flex-col lg:flex-row lg:max-w-[1200px] mx-auto'>
 					<div className='mx-auto max-w-[600px]'>
 						<h1 className='text-5xl lg:text-7xl font-bold mb-4 mt-8'>
@@ -258,7 +261,7 @@ export default function Home() {
 							</div>
 						</div>
 					</div>
-				</div> */}
+				</div>
 			</main>
 		</>
 	);

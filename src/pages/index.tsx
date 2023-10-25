@@ -195,7 +195,8 @@ export default function Home() {
 				<link rel='icon' type='image/png' href='/favicon.ico' />
 			</Head>
 			<main className={`${inter.className} mx-6 mt-4 lg:mt-12`}>
-				<Toaster />
+				<p>we&apos;ll be right back</p>
+				{/* <Toaster />
 				<div className='flex flex-col lg:flex-row lg:max-w-[1200px] mx-auto'>
 					<div className='mx-auto max-w-[600px]'>
 						<h1 className='text-5xl lg:text-7xl font-bold mb-4 mt-8'>
@@ -257,7 +258,7 @@ export default function Home() {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> */}
 			</main>
 		</>
 	);
